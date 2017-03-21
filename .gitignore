@@ -1,0 +1,7 @@
+/vendor
+/main/PHPMailer
+/config
+/logs
+/public/fonts
+/public/js
+/public/css

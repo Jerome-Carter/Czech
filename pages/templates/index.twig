@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>{% block title %}{% endblock %} | Made By J.C.</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+  <link href="https://misc-devel.gadgetsoftware.com/css/app.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  {% include 'templates/components/nav.twig' %}
+  {% include 'templates/components/flash.twig' %}
+  
+  {% block content %}{% endblock %}
+
+  {% include 'templates/components/footer.twig' %}
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <script src="https://misc-devel.gadgetsoftware.com/js/app.js"></script>
+
+  {% block script %}{% endblock %}
+
+  </body>
+</html>

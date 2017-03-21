@@ -1,0 +1,55 @@
+{% extends 'templates/index.twig' %}
+
+{% block title %}Manage Interns{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row" style="margin-top: 30px">
+        <div class="col m12 s12">
+            <a href="{{ path_for('newUser') }}" style="width: 100% !important" class="btn btn-large waves-effect waves-light blue-grey">New User</a>
+        </div>
+    </div>
+    <table class="striped centered" style="margin-bottom: 30px">
+        <thead>
+          <tr>
+              <th data-field="id">Name</th>
+              <th data-field="name">Email</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% if students is empty %}
+          <tr>
+              <td></td>
+              <td>No students could be found. Maybe you should create some!</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+          </tr>
+          {% endif %}
+          {% for student in students %}
+          <tr>
+            <td><a href="{{ path_for('spec', { 'user': student.id }) }}">{{ student.name }}</a></td>
+            <td>{{ student.email }}</td>
+            <td><a onclick="del('{{ student.name }}', {{ student.id }})">Delete</a></td>
+          </tr>
+          {% endfor %}
+          <script type="text/javascript">
+            function del(un, id) {
+              var warn = confirm("Do you really want to delete " + un + " and his/her records?");
+                if (warn == true){
+                    window.location = "{{ path_for('deleteIntern', { 'student': id }) }}" + id;
+                }else{
+                    window.location = "{{ path_for('main') }}";
+                }
+            }
+          </script>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block script %}
+  alert('{{ path_for('deleteIntern', { 'student': student.id }) }}');
+{% endblock %}

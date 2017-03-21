@@ -1,0 +1,50 @@
+{% extends 'templates/index.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col m10 offset-m1 s12">
+            <h2 class="center-align blue-grey-text">New User</h2>
+            <div class="row">
+                <form autocomplete="off" action="{{ path_for('newUserPost') }}" method="post" class="col s12">
+                    <div class="row">
+                        <div class="input-field col m6 s12">
+                            <input {% if preserved_data.first_name %}value="{{ preserved_data.first_name }}"{% endif %} name="first_name" type="text" class="validate">
+                            <label for="first_name" class="blue-grey-text"><i class="material-icons left">account_circle</i>First Name{% if form_errors.first_name %} | <span class="err">{{ form_errors.first_name | first }}</span>{% endif %}</label>
+                        </div>
+                        <div class="input-field col m6 s12">
+                            <input {% if preserved_data.last_name %}value="{{ preserved_data.last_name }}"{% endif %} name="last_name" type="text" class="validate">
+                            <label for="last_name" class="blue-grey-text"><i class="material-icons left">account_circle</i>Last Name{% if form_errors.last_name %} | <span class="err">{{ form_errors.last_name | first }}</span>{% endif %}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input {% if preserved_data.email %}value="{{ preserved_data.email }}"{% endif %} name="email" type="email" class="validate">
+                            <label for="email" class="blue-grey-text"><i class="material-icons left">mail</i>Email{% if form_errors.email %} | <span class="err">{{ form_errors.email | first }}</span>{% endif %}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                          <label class="blue-grey-text"><i class="material-icons left">people</i>Account Type{% if form_errors.auth %} | <span class="err">{{ form_errors.auth | first }}</span>{% endif %}</label>
+                          <br/>
+                        </div>
+                        <div class="input-field col m3 s6 center-align">
+                          <input {% if preserved_data.auth == 1 %}checked="checked"{% endif %} name="auth" type="radio" value="1" id="admin" class="blue-grey-text"/>
+                          <label for="admin" class="black-text">Administrator</label>
+                        </div>
+                        <div class="input-field col m3 s6 center-align">
+                          <input {% if preserved_data.auth == 0 %}checked="checked"{% endif %} name="auth" type="radio" value="0" id="student" class="blue-grey-text"/>
+                          <label for="student"  class="black-text">Student</label>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <p class="center-align"><button class="btn btn-large waves-effect waves-light blue-grey" type="submit">Create User</button></p>
+                    {{ csrf.field | raw }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

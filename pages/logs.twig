@@ -1,0 +1,54 @@
+{% extends 'templates/index.twig' %}
+
+{% block title %}Timesheet{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row" style="margin-top: 30px">
+        <div class="col m12 s12">
+            <a download="intern-timesheet.xls" href="#" onclick="return ExcellentExport.excel(this, 'ts', 'Intern Timesheet');" style="width: 100% !important" class="btn btn-large waves-effect waves-light blue-grey">Export Timesheet as Excel Sheet</a>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 30px">
+        <div class="col m12 s12">
+            <a download="intern-timesheet.csv" href="#" onclick="return ExcellentExport.csv(this, 'ts');" style="width: 100% !important" class="btn btn-large waves-effect waves-light blue-grey">Export Timesheet as CSV</a>
+        </div>
+    </div>
+    <div id="t">
+    <table id="ts" class="striped centered" style="margin-bottom: 30px">
+        <thead>
+          <tr>
+            {% if logs is not empty %}
+              <th data-field="name">Name</th>
+              <th data-field="status">Status</th>
+              {# <th data-field="loc">Location</th> #}
+              <th data-field="time">Time</th>
+            {% else %}
+            {% endif %}
+          </tr>
+        </thead>
+
+        <tbody>
+          {% if logs is empty %}
+          <tr>
+              <td class="red-text" style="font-weight: bolder; font-size: 30px">No records could be found.</td>
+          </tr>
+          {% endif %}
+          {% for log in logs %}
+            {% if log is not null %}
+          <tr>
+            <td>{{ log.name }}</td>
+            <td><a href='https://www.google.com/maps/preview/@{{log.lat}},{{log.long}},19z' target=\"blank\">{{ log.status }}</a></td>
+            {# <td>{{ log.location|raw }}</td> #}
+            <td>{{ log.date }}</td>
+          </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script src="https://misc-devel.gadgetsoftware.com/js/excellentExport.js"></script>
+{% endblock %}

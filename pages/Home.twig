@@ -1,0 +1,64 @@
+{% extends 'templates/index.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <br><br>
+        {% if not student.state %}
+        <h1 class="header center blue-grey-text text-lighten-2">Login To Get Started!</h1>
+        <div class="row center">
+        </div>
+        <div class="row center">
+          <a href="{{ path_for('login') }}" id="download-button" class="btn-large waves-effect waves-light blue-grey lighten-1">Login</a>
+        </div>
+        {% else %}
+        {% if student.rank %}
+        <h1 class="header center blue-grey-text text-lighten-2">View The Timesheet!</h1>
+        <div class="row center">
+        </div>
+        <div class="row center">
+          <a href="{{ path_for('log') }}" id="download-button" class="btn-large waves-effect waves-light blue-grey lighten-1">View Timesheet</a>
+        </div>
+        {% else %}
+        {# {% if lastCzech is not null %} #}
+        <h1 class="header center blue-grey-text text-lighten-2">Check In/Out!</h1>
+        <div class="row center">
+        </div>
+        <div class="row center">
+          <form id="czech" method="post" action="{{ path_for('czech') }}" class="col s12">
+            <input type="hidden" name="uid" value="{{ student.data.id }}">
+            <input type="hidden" id="latitude" name="latitude">
+            <input type="hidden" id="longitude" name="longitude">
+          </form>
+          <button id="cico" class="btn btn-large waves-effect waves-light blue-grey lighten-1" onclick="getLocation()">Check In/Out</button>
+        </div>
+        <script>
+          function getLocation() {
+              document.getElementById("cico").className += " disabled";
+              if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(czech);
+              } else {
+                  alert("Geolocation is not supported by this browser.");
+              }
+          }
+          function czech(position) {
+              document.getElementById('latitude').value = position.coords.latitude;
+              document.getElementById('longitude').value = position.coords.longitude;
+              document.getElementById("czech").submit();
+          }
+        </script>
+        {# {% else %} #}
+        {# <h1 style="padding-top: 60px" class="header center blue-grey-text text-lighten-2">You've Already Checked Out Today!</h1> #}
+        {# {% endif %} #}
+        {% endif %}
+        {% endif %}
+        <br><br>
+
+      </div>
+    </div>
+    <div class="parallax"><img src="img/home.png" alt="Unsplashed background img 1"></div>
+  </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% if flash.getMessage('error') %}
+<nav class="red darken-3" role="navigation">
+  <div class="nav-wrapper container">
+    <a id="center-align" href="#" class="brand-logo white-text"><i class="white-text material-icons left">cancel</i>{{ flash.getMessage('error') | first }}</a>
+  </div>
+</nav>
+{% endif %}
+{% if flash.getMessage('pass') %}
+<nav class="light-green lighten-2" role="navigation">
+  <div class="nav-wrapper container">
+    <a id="center-align" href="#" class="brand-logo white-text"><i class="white-text material-icons left">mood</i>{{ flash.getMessage('pass') | first }}</a>
+  </div>
+</nav>
+{% endif %}
+{% if flash.getMessage('warn') %}
+<nav class="yellow darken-2" role="navigation">
+  <div class="nav-wrapper container">
+    <a id="center-align" href="#" class="brand-logo white-text"><i class="white-text material-icons left">report_problem</i>{{ flash.getMessage('warn') | first }}</a>
+  </div>
+</nav>
+{% endif %}
